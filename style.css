@@ -1,0 +1,755 @@
+/* ==========================================================
+   SHAK-MAT ACADEMY — STYLESHEET
+
+   Sections in this file:
+   1. Reset & base
+   2. Design tokens (colors, type, spacing)
+   3. Typography
+   4. Buttons
+   5. Header / navigation
+   6. Hero
+   7. About
+   8. Pieces
+   9. How it works (timeline)
+   10. Strategies
+   11. Puzzle CTA band
+   12. Puzzle modal
+   13. Footer
+   14. Responsive breakpoints
+   15. Accessibility (focus states, reduced motion)
+   16. Micro-interactions (scroll reveal, selection pulse, success glow)
+   ========================================================== */
+
+
+/* ---------- 1. RESET & BASE ---------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+
+/* ---------- 2. DESIGN TOKENS ---------- */
+
+:root {
+  /* Core palette — inspired by a chessboard and its wooden pieces */
+  --ink: #1B1815;           /* near-black charcoal, main dark background */
+  --ink-soft: #262119;      /* slightly lighter dark, for cards on dark bg */
+  --walnut: #3E2C22;        /* deep brown, secondary dark surface */
+  --ivory: #F3EEE3;         /* warm ivory, main light background */
+  --ivory-soft: #EAE2D3;    /* slightly deeper ivory for contrast panels */
+  --gold: #C9A667;          /* muted gold, primary accent */
+  --gold-deep: #A5824C;     /* darker gold, hover/pressed states */
+  --text-muted: #A79C8D;    /* secondary text on dark backgrounds */
+  --text-muted-light: #6B6153; /* secondary text on light backgrounds */
+  --success: #6E8F6B;       /* muted sage, correct-move feedback */
+  --danger: #A6483B;        /* muted brick red, incorrect-move feedback */
+
+  /* Typography */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Spacing scale */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4rem;
+  --space-xxl: 6rem;
+
+  /* Shape */
+  --radius-sm: 4px;
+  --radius-md: 10px;
+
+  /* Motion */
+  --transition-fast: 150ms ease;
+  --transition-medium: 300ms ease;
+}
+
+
+/* ---------- 3. TYPOGRAPHY ---------- */
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--ivory);
+  color: var(--ink);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+h1 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+}
+
+h2 {
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  margin-bottom: var(--space-lg);
+}
+
+h3 {
+  font-size: 1.25rem;
+  margin-bottom: var(--space-xs);
+}
+
+p {
+  max-width: 65ch;
+  color: var(--text-muted-light);
+}
+
+section {
+  padding: var(--space-xxl) var(--space-lg);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+
+/* ---------- 4. BUTTONS ---------- */
+
+.btn {
+  display: inline-block;
+  padding: 0.9rem 2rem;
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  font-weight: 600;
+  transition: transform var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn-primary {
+  background-color: var(--gold);
+  color: var(--ink);
+}
+
+.btn-primary:hover {
+  background-color: var(--gold-deep);
+  box-shadow: 0 4px 14px rgba(201, 166, 103, 0.35);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--ivory);
+  border: 1.5px solid var(--gold);
+}
+
+.btn-secondary:hover {
+  background-color: rgba(201, 166, 103, 0.12);
+}
+
+/* Secondary button variant when placed on light backgrounds */
+.puzzle-controls .btn-secondary {
+  color: var(--ink);
+  border-color: var(--walnut);
+}
+
+.puzzle-controls .btn-secondary:hover {
+  background-color: rgba(62, 44, 34, 0.08);
+}
+
+
+/* ---------- 5. HEADER / NAVIGATION ---------- */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: rgba(27, 24, 21, 0.92);
+  backdrop-filter: blur(8px);
+}
+
+.navbar {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.1rem var(--space-lg);
+}
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 26px;
+  height: 18px;
+  padding: 0;
+}
+
+.nav-toggle-bar {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background-color: var(--ivory);
+  border-radius: 2px;
+  transition: transform var(--transition-fast), opacity var(--transition-fast);
+}
+
+.nav-toggle.open .nav-toggle-bar:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.nav-toggle.open .nav-toggle-bar:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-toggle.open .nav-toggle-bar:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+.brand {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--ivory);
+}
+
+.nav-links {
+  display: flex;
+  gap: var(--space-lg);
+}
+
+.nav-links a {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding-bottom: 4px;
+  border-bottom: 2px solid transparent;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--ivory);
+  border-bottom-color: var(--gold);
+}
+
+
+/* ---------- 6. HERO ---------- */
+
+.hero {
+  max-width: none;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  padding: var(--space-xxl) var(--space-lg);
+  background-color: var(--ink);
+  background-image:
+    linear-gradient(90deg, rgba(27,24,21,0.97) 45%, rgba(27,24,21,0.75) 100%),
+    repeating-conic-gradient(
+      var(--ink-soft) 0% 25%, var(--walnut) 0% 50%
+    );
+  background-size: 100% 100%, 80px 80px;
+  background-position: 0 0, right center;
+  background-repeat: no-repeat, repeat;
+}
+
+.hero-content {
+  max-width: 700px;
+}
+
+.hero-content h1 {
+  color: var(--ivory);
+  margin-bottom: var(--space-md);
+}
+
+.hero-content p {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  margin-bottom: var(--space-lg);
+}
+
+.hero-buttons {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+
+/* ---------- 7. ABOUT ---------- */
+
+.about h2 {
+  text-align: left;
+}
+
+.about > p {
+  margin-bottom: var(--space-lg);
+  font-size: 1.05rem;
+}
+
+.info-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+}
+
+.info-card {
+  padding: var(--space-md);
+  background-color: var(--ivory-soft);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.info-card p {
+  font-size: 0.95rem;
+}
+
+
+/* ---------- 8. PIECES ---------- */
+
+.pieces {
+  background-color: var(--ivory-soft);
+  max-width: none;
+}
+
+.pieces > h2,
+.pieces > .piece-cards {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.piece-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+}
+
+.piece-card {
+  background-color: var(--ivory);
+  border: 1px solid rgba(62, 44, 34, 0.15);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  text-align: center;
+  transition: transform var(--transition-medium), box-shadow var(--transition-medium), border-color var(--transition-medium);
+}
+
+.piece-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--gold);
+  box-shadow: 0 12px 24px rgba(62, 44, 34, 0.12);
+}
+
+.piece-icon {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: var(--space-xs);
+  color: var(--walnut);
+}
+
+.piece-card p {
+  font-size: 0.9rem;
+  margin: 0 auto;
+}
+
+
+/* ---------- 9. HOW IT WORKS (TIMELINE) ---------- */
+
+.how-it-works {
+  max-width: none;
+  background-color: var(--ink);
+}
+
+.how-it-works > h2 {
+  color: var(--ivory);
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.timeline {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-md);
+  position: relative;
+}
+
+.timeline-step {
+  position: relative;
+  padding-top: var(--space-lg);
+  border-top: 2px solid var(--gold);
+}
+
+.timeline-step h3 {
+  color: var(--ivory);
+}
+
+.timeline-step p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+
+/* ---------- 10. STRATEGIES ---------- */
+
+.strategy-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+}
+
+.strategy-card {
+  padding: var(--space-md);
+  border: 1px solid rgba(62, 44, 34, 0.15);
+  border-radius: var(--radius-md);
+  transition: box-shadow var(--transition-medium), border-color var(--transition-medium);
+}
+
+.strategy-card:hover {
+  border-color: var(--gold);
+  box-shadow: 0 8px 20px rgba(62, 44, 34, 0.1);
+}
+
+.strategy-card p {
+  font-size: 0.95rem;
+}
+
+
+/* ---------- 11. PUZZLE CTA BAND ---------- */
+
+.puzzle-cta {
+  max-width: none;
+  text-align: center;
+  background-color: var(--walnut);
+  padding: var(--space-xxl) var(--space-lg);
+}
+
+.puzzle-cta h2 {
+  color: var(--ivory);
+}
+
+.puzzle-cta p {
+  color: var(--text-muted);
+  margin: 0 auto var(--space-lg);
+}
+
+
+/* ---------- 12. PUZZLE MODAL ---------- */
+
+.puzzle-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(27, 24, 21, 0.85);
+  padding: var(--space-sm);
+  transition: opacity var(--transition-medium), visibility var(--transition-medium);
+}
+
+.puzzle-modal.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.puzzle-panel {
+  position: relative;
+  background-color: var(--ivory);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+  max-height: 90vh;
+  overflow-y: auto;
+  transform: scale(1);
+  transition: transform var(--transition-medium);
+}
+
+.puzzle-modal.hidden .puzzle-panel {
+  transform: scale(0.94);
+}
+
+.puzzle-close {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  font-size: 1.8rem;
+  line-height: 1;
+  color: var(--text-muted-light);
+  transition: color var(--transition-fast);
+}
+
+.puzzle-close:hover {
+  color: var(--ink);
+}
+
+.puzzle-instruction {
+  margin: 0 auto var(--space-md);
+  color: var(--text-muted-light);
+}
+
+.chessboard {
+  width: 100%;
+  max-width: 360px;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto var(--space-md);
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  border: 3px solid var(--walnut);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+/* Individual squares, generated by JavaScript */
+.square {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(1.5rem, 6vw, 2.2rem);
+  cursor: pointer;
+  user-select: none;
+  transition: background-color var(--transition-fast);
+}
+
+.square-light {
+  background-color: var(--ivory-soft);
+}
+
+.square-dark {
+  background-color: var(--walnut);
+}
+
+.square:hover {
+  background-color: var(--gold);
+}
+
+/* Highlight for the currently selected piece (used in Step 6) */
+.square.selected {
+  background-color: var(--gold-deep);
+}
+
+.piece-white {
+  color: #fdfaf3;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.piece-black {
+  color: #1b1815;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.15);
+}
+
+.puzzle-status {
+  font-weight: 600;
+  margin-bottom: var(--space-md);
+}
+
+.puzzle-status.status-success {
+  color: var(--success);
+}
+
+.puzzle-status.status-error {
+  color: var(--danger);
+}
+
+.puzzle-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  justify-content: center;
+}
+
+
+/* ---------- 13. FOOTER ---------- */
+
+.site-footer {
+  background-color: var(--ink);
+  color: var(--text-muted);
+  text-align: center;
+  padding: var(--space-lg);
+  font-size: 0.9rem;
+}
+
+
+/* ---------- 14. RESPONSIVE BREAKPOINTS ---------- */
+
+@media (max-width: 900px) {
+  .info-cards,
+  .piece-cards,
+  .strategy-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .timeline {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg) var(--space-md);
+  }
+
+  .hero {
+    background-size: 100% 100%, 50px 50px;
+  }
+}
+
+@media (max-width: 600px) {
+  section {
+    padding: var(--space-xl) var(--space-md);
+  }
+
+  .navbar {
+    padding: 1rem var(--space-md);
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-md);
+    background-color: rgba(27, 24, 21, 0.97);
+    padding: 0 var(--space-md);
+    font-size: 0.95rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--transition-medium), padding var(--transition-medium);
+  }
+
+  .nav-links.open {
+    max-height: 300px;
+    padding: var(--space-md);
+  }
+
+  .hero {
+    min-height: auto;
+    background-image: linear-gradient(180deg, rgba(27,24,21,0.97), rgba(27,24,21,0.97));
+  }
+
+  .hero-content {
+    max-width: 100%;
+  }
+
+  .info-cards,
+  .piece-cards,
+  .strategy-cards,
+  .timeline {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+  }
+
+  .hero-buttons .btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+
+/* ---------- 15. ACCESSIBILITY ---------- */
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+/* Squares sit inside a board with overflow:hidden, so an outside outline
+   would get clipped — an inset box-shadow reads just as clearly instead. */
+.square:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 3px var(--gold);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+/* ---------- 16. MICRO-INTERACTIONS ---------- */
+
+/* Each section (other than the hero) starts slightly lower and transparent,
+   then settles into place the first time it scrolls into view. */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 700ms ease, transform 700ms ease;
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* A selected chess piece pulses gently so it clearly reads as "picked up". */
+.square.selected {
+  animation: pulse-select 1.1s ease-in-out infinite;
+}
+
+@keyframes pulse-select {
+  0%, 100% {
+    box-shadow: inset 0 0 0 0 rgba(201, 166, 103, 0.6);
+  }
+  50% {
+    box-shadow: inset 0 0 0 6px rgba(201, 166, 103, 0.25);
+  }
+}
+
+/* A brief golden glow around the board when the puzzle is solved. */
+.chessboard.solved {
+  animation: success-glow 900ms ease-out;
+}
+
+@keyframes success-glow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(201, 166, 103, 0.7);
+  }
+  100% {
+    box-shadow: 0 0 0 18px rgba(201, 166, 103, 0);
+  }
+}

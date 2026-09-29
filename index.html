@@ -1,35 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simple Hero Section</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shak-mat Academy | Learn Chess</title>
+
+  <!-- Our own stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Google Font: Playfair Display (headlines) + Inter (body text) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
 </head>
 <body>
 
-  <nav class="navbar">
-    <div class="logo">MyWebsite</div>
+  <!-- ============ NAVIGATION ============ -->
+  <header class="site-header">
+    <nav class="navbar">
+      <a href="#home" class="brand">Shak-mat Academy</a>
 
-    <ul class="nav-links">
-      <li><a href="#">Home</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Services</a></li>
-      <li><a href="#">Contact</a></li>
-    </ul>
-  </nav>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
 
-  <section class="hero">
-    <div class="hero-content">
-      <h1>Welcome to My Website</h1>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#learn">Learn</a></li>
+        <li><a href="#strategies">Strategies</a></li>
+        <li><a href="#puzzle">Puzzle</a></li>
+      </ul>
+    </nav>
+  </header>
 
+  <main>
+
+    <!-- ============ HERO SECTION ============ -->
+    <section id="home" class="hero">
+      <div class="hero-content">
+        <h1>Master the Board.<br />Think Beyond the Move.</h1>
+        <p>
+          Chess has challenged the sharpest minds for over a thousand years.
+          This is a calm, clear introduction to the pieces, the ideas, and the
+          strategy behind every great game.
+        </p>
+        <div class="hero-buttons">
+          <a href="#about" class="btn btn-primary">Explore Chess</a>
+          <button class="btn btn-secondary" id="hero-puzzle-btn">Try a Puzzle</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ABOUT CHESS ============ -->
+    <section id="about" class="about">
+      <h2>What Is Chess?</h2>
       <p>
-        A simple and clean hero section built using HTML and CSS.
+        Chess is a two-player strategy game played on a checkered board of 64
+        squares. Each player commands an army of sixteen pieces, and the goal
+        is simple to state but endlessly deep to master: trap your opponent's
+        king so it cannot escape capture.
       </p>
 
-      <a href="#" class="hero-button">Get Started</a>
-    </div>
-  </section>
+      <div class="info-cards">
+        <div class="info-card">
+          <h3>The Objective</h3>
+          <p>Checkmate the opposing king before yours is checkmated.</p>
+        </div>
+        <div class="info-card">
+          <h3>The Pieces</h3>
+          <p>Six different piece types, each with its own way of moving.</p>
+        </div>
+        <div class="info-card">
+          <h3>Why Strategy Matters</h3>
+          <p>Every move changes the position — good players plan ahead.</p>
+        </div>
+      </div>
+    </section>
 
+    <!-- ============ CHESS PIECES ============ -->
+    <section id="learn" class="pieces">
+      <h2>The Pieces</h2>
+
+      <div class="piece-cards">
+        <div class="piece-card">
+          <span class="piece-icon">♔</span>
+          <h3>King</h3>
+          <p>Moves one square in any direction. Protect it at all costs.</p>
+        </div>
+        <div class="piece-card">
+          <span class="piece-icon">♕</span>
+          <h3>Queen</h3>
+          <p>Moves any number of squares in any direction. The strongest piece.</p>
+        </div>
+        <div class="piece-card">
+          <span class="piece-icon">♖</span>
+          <h3>Rook</h3>
+          <p>Moves any number of squares horizontally or vertically.</p>
+        </div>
+        <div class="piece-card">
+          <span class="piece-icon">♗</span>
+          <h3>Bishop</h3>
+          <p>Moves any number of squares diagonally, staying on one color.</p>
+        </div>
+        <div class="piece-card">
+          <span class="piece-icon">♘</span>
+          <h3>Knight</h3>
+          <p>Moves in an "L" shape and is the only piece that can jump over others.</p>
+        </div>
+        <div class="piece-card">
+          <span class="piece-icon">♙</span>
+          <h3>Pawn</h3>
+          <p>Moves forward one square, captures diagonally, and can promote.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ HOW CHESS WORKS ============ -->
+    <section id="how-it-works" class="how-it-works">
+      <h2>How a Game Unfolds</h2>
+
+      <div class="timeline">
+        <div class="timeline-step">
+          <h3>Opening</h3>
+          <p>Players develop pieces and fight for control of the center.</p>
+        </div>
+        <div class="timeline-step">
+          <h3>Development</h3>
+          <p>Pieces move to active squares and the king finds safety.</p>
+        </div>
+        <div class="timeline-step">
+          <h3>Middle Game</h3>
+          <p>Plans clash — tactics, threats, and attacks take shape.</p>
+        </div>
+        <div class="timeline-step">
+          <h3>Endgame</h3>
+          <p>Fewer pieces remain and precise technique decides the result.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ STRATEGIES ============ -->
+    <section id="strategies" class="strategies">
+      <h2>Basic Strategies</h2>
+
+      <div class="strategy-cards">
+        <div class="strategy-card">
+          <h3>Control the Center</h3>
+          <p>The central squares give your pieces the most influence on the board.</p>
+        </div>
+        <div class="strategy-card">
+          <h3>Develop Your Pieces</h3>
+          <p>Bring your knights and bishops into the game early.</p>
+        </div>
+        <div class="strategy-card">
+          <h3>Protect Your King</h3>
+          <p>Castle early to keep your king safe from attack.</p>
+        </div>
+        <div class="strategy-card">
+          <h3>Think Before Moving</h3>
+          <p>Check what your move allows your opponent to do in response.</p>
+        </div>
+        <div class="strategy-card">
+          <h3>Look for Threats</h3>
+          <p>Watch for pieces that are unprotected or under attack.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PUZZLE CALL-TO-ACTION ============ -->
+    <section id="puzzle" class="puzzle-cta">
+      <h2>Put Your Thinking to the Test</h2>
+      <p>One position. One correct idea. Can you find it?</p>
+      <button class="btn btn-primary" id="main-puzzle-btn">Try a Chess Puzzle</button>
+    </section>
+
+  </main>
+
+  <!-- ============ PUZZLE MODAL (hidden until opened) ============ -->
+  <div id="puzzle-modal" class="puzzle-modal hidden">
+    <div class="puzzle-panel" role="dialog" aria-modal="true" aria-labelledby="puzzle-title">
+      <button class="puzzle-close" id="puzzle-close-btn" aria-label="Close puzzle">&times;</button>
+
+      <h2 id="puzzle-title">Chess Puzzle</h2>
+      <p class="puzzle-instruction">White to move. Find the best move.</p>
+
+      <div id="chessboard" class="chessboard">
+        <!-- Board squares will be generated by JavaScript in a later step -->
+      </div>
+
+      <p id="puzzle-status" class="puzzle-status">Select a piece to begin.</p>
+
+      <div class="puzzle-controls">
+        <button class="btn btn-secondary" id="hint-btn">Hint</button>
+        <button class="btn btn-secondary" id="new-puzzle-btn">New Puzzle</button>
+        <button class="btn btn-secondary" id="reset-btn">Reset</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <p>&copy; 2026 Shak-mat Academy. Built for learning the game of kings.</p>
+  </footer>
+
+  <!-- Our own script -->
+  <script src="script.js"></script>
 </body>
 </html>
